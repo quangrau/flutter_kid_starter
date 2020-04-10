@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterkutkit/screens/homeScreen.dart';
-import 'package:flutterkutkit/screens/colorScreen.dart';
+import 'package:flutterkutkit/screens/colorsScreen.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ColorsScreen extends StatelessWidget {
+  final List<Color> _colors = [Colors.red[400], Colors.blue, Colors.green, Colors.yellow, ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,42 +14,32 @@ class ColorsScreen extends StatelessWidget {
         child: GridView(
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          children: <Widget>[
-            ColorWidget(color: 'Red'),
-            ColorWidget(color: 'Green'),
-            ColorWidget(color: 'Blue'),
-          ],
+          children: _colors.map(
+            (color) => ColorWidget(
+              colorName: color.toString(),
+              colorCode: color,
+            )
+          ).toList(),
         ),
       ),
     );
   }
-
-  List _buildList(int count) {
-    List<Widget> listItems = List();
-
-    for (int i = 0; i < count; i++) {
-      listItems.add(new Padding(
-          padding: new EdgeInsets.all(20.0),
-          child: new Text('Item ${i.toString()}',
-              style: new TextStyle(fontSize: 25.0))));
-    }
-
-    return listItems;
-  }
 }
 
 class ColorWidget extends StatelessWidget {
-  final String color;
+  final String colorName;
+  final Color colorCode;
 
   const ColorWidget({
-    this.color,
+    this.colorName,
+    this.colorCode,
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.red[400],
+      color: colorCode,
       child: InkWell(
           onTap: () {
             print('tapped');
@@ -55,7 +47,7 @@ class ColorWidget extends StatelessWidget {
           child: Center(
             child: Container(
               child: Text(
-                color,
+                colorName,
                 style: TextStyle(
                   fontFamily: 'CabinSketch',
                   fontSize: 32,

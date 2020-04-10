@@ -1,0 +1,42 @@
+[
+  {
+    "code": "#F44336",
+    "name": "Red"
+  },
+  {
+    "code": "#E91E63",
+    "name": "Pink"
+  },
+  {
+    "code": "#9C27B0",
+    "name": "Purple"
+  },
+  {
+    "code": "#2196F3",
+    "name": "Blue"
+  },
+  {
+    "code": "#4CAF50",
+    "name": "Green"
+  },
+  {
+    "code": "#FFEB3B",
+    "name": "Yellow"
+  },
+  {
+    "code": "#FF9800",
+    "name": "Orange"
+  },
+  {
+    "code": "#795548",
+    "name": "Brown"
+  },
+  {
+    "code": "#000000",
+    "name": "Black"
+  },
+  {
+    "code": "#FFFFFF",
+    "name": "White"
+  }
+]
