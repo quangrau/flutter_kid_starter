@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterkutkit/screens/homeScreen.dart';
-import 'package:flutterkutkit/screens/colorScreen.dart';
+import 'package:flutterkutkit/screens/home.dart';
+import 'package:flutterkutkit/screens/colors.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
