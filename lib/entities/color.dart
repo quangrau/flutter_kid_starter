@@ -1,16 +1,19 @@
 class ColorEntity {
-  String colorCode;
-  String colorName;
+  String code;
+  String name;
+  String audio;
 
   ColorEntity({
-    this.colorCode,
-    this.colorName,
+    this.code,
+    this.name,
+    this.audio,
   });
 
   factory ColorEntity.fromJson(Map<String, dynamic> parsedJson) {
     return ColorEntity(
-      colorCode: parsedJson['code'],
-      colorName: parsedJson['name'],
+      code: parsedJson['code'],
+      name: parsedJson['name'],
+      audio: parsedJson['audio'],
     );
   }
 }

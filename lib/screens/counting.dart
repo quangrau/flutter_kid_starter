@@ -4,35 +4,35 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
-import 'package:flutterkutkit/entities/color.dart';
+import 'package:flutterkutkit/entities/number.dart';
 import 'package:flutterkutkit/widgets/base_app_bar.dart';
-import 'package:flutterkutkit/widgets/colorGrid.dart';
+import 'package:flutterkutkit/widgets/numberGrid.dart';
 
-Future<List<ColorEntity>> _fetchColors() async {
-  String jsonString = await rootBundle.loadString('assets/data/colors.json');
+Future<List<NumberEntity>> _fetchNumbers() async {
+  String jsonString = await rootBundle.loadString('assets/data/numbers.json');
   final jsonParsed = json.decode(jsonString);
 
   return jsonParsed
-      .map<ColorEntity>((json) => new ColorEntity.fromJson(json))
+      .map<NumberEntity>((json) => new NumberEntity.fromJson(json))
       .toList();
 }
 
-class ColorsScreen extends StatefulWidget {
-  ColorsScreen();
+class CountingScreen extends StatefulWidget {
+  CountingScreen();
 
   @override
-  _ColorsScreenState createState() => _ColorsScreenState();
+  _CountingScreenState createState() => _CountingScreenState();
 }
 
-class _ColorsScreenState extends State<ColorsScreen> {
-  Future<List<ColorEntity>> _colorsFuture;
+class _CountingScreenState extends State<CountingScreen> {
+  Future<List<NumberEntity>> _numbersFuture;
   FlutterSoundPlayer _soundPlayer;
 
   @override
   void initState() {
     super.initState();
 
-    _colorsFuture = _fetchColors();
+    _numbersFuture = _fetchNumbers();
     _soundPlayer = new FlutterSoundPlayer();
   }
 
@@ -46,11 +46,11 @@ class _ColorsScreenState extends State<ColorsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: BaseAppBar(
-          title: 'Colors',
-          backgroundColor: Colors.teal[100],
+          title: '123',
+          backgroundColor: Colors.pink[100],
         ),
         body: new FutureBuilder(
-          future: _colorsFuture,
+          future: _numbersFuture,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GridView.builder(
@@ -58,9 +58,8 @@ class _ColorsScreenState extends State<ColorsScreen> {
                     crossAxisCount: 2),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ColorGrid(
-                    code: int.parse(snapshot.data[index].code),
-                    name: snapshot.data[index].name,
+                  return NumberGrid(
+                    text: snapshot.data[index].text,
                     onTap: () {
                       _playAudio(snapshot.data[index].audio);
                     },

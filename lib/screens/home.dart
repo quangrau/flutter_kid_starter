@@ -12,19 +12,19 @@ class HomeScreen extends StatelessWidget {
             color: Colors.teal[100],
           ),
           _CategoryTile(
-            title: 'Shapes',
-            route: '/shapes',
+            title: '123',
+            route: '/counting',
             color: Colors.pink[100],
           ),
           _CategoryTile(
             title: 'ABC',
             route: '/abc',
-            color: Colors.green[100],
+            color: Colors.yellow[100],
           ),
           _CategoryTile(
-            title: '123',
-            route: '/counting',
-            color: Colors.yellow[100],
+            title: 'Shapes',
+            route: '/shapes',
+            color: Colors.green[100],
           ),
           _CategoryTile(
             title: 'Stories',

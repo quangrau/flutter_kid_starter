@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class ColorGrid extends StatelessWidget {
   final int code;
   final String name;
+  final VoidCallback onTap;
 
   const ColorGrid({
     this.code,
     this.name,
+    this.onTap,
     Key key,
   }) : super(key: key);
 
@@ -15,17 +17,17 @@ class ColorGrid extends StatelessWidget {
     return Material(
       color: new Color(code),
       child: InkWell(
-          onTap: () {
-            print('tapped');
-          },
+          onTap: onTap,
           child: Center(
             child: Container(
               child: Text(
                 name,
                 style: TextStyle(
                   fontFamily: 'CabinSketch',
-                  fontSize: 32,
-                  color: Colors.white,
+                  fontSize: 54,
+                  color: name == 'White' || name == 'Yellow'
+                      ? Colors.black.withOpacity(0.4)
+                      : Colors.white.withOpacity(0.65),
                 ),
               ),
             ),

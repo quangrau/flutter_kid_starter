@@ -1,42 +1,52 @@
 [
   {
     "code": "0xfff44336",
-    "name": "Red"
-  },
-  {
-    "code": "0xffe91e63",
-    "name": "Pink"
-  },
-  {
-    "code": "0xff9c27b0",
-    "name": "Purple"
-  },
-  {
-    "code": "0xff2196f3",
-    "name": "Blue"
+    "name": "Red",
+    "audio": "assets/audio/red.mp3"
   },
   {
     "code": "0xff4caf50",
-    "name": "Green"
+    "name": "Green",
+    "audio": "assets/audio/green.mp3"
+  },
+  {
+    "code": "0xff9c27b0",
+    "name": "Purple",
+    "audio": "assets/audio/purple.mp3"
+  },
+  {
+    "code": "0xff2196f3",
+    "name": "Blue",
+    "audio": "assets/audio/blue.mp3"
+  },
+  {
+    "code": "0xffec407a",
+    "name": "Pink",
+    "audio": "assets/audio/pink.mp3"
   },
   {
     "code": "0xffffeb3b",
-    "name": "Yellow"
+    "name": "Yellow",
+    "audio": "assets/audio/yellow.mp3"
   },
   {
     "code": "0xffff9800",
-    "name": "Orange"
+    "name": "Orange",
+    "audio": "assets/audio/orange.mp3"
   },
   {
     "code": "0xff795548",
-    "name": "Brown"
+    "name": "Brown",
+    "audio": "assets/audio/brown.mp3"
   },
   {
     "code": "0xff000000",
-    "name": "Black"
+    "name": "Black",
+    "audio": "assets/audio/black.mp3"
   },
   {
     "code": "0xffffffff",
-    "name": "White"
+    "name": "White",
+    "audio": "assets/audio/white.mp3"
   }
 ]
