@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class NumberGrid extends StatefulWidget {
+  final bool selected;
   final String text;
   final VoidCallback onTap;
 
   const NumberGrid({
+    this.selected,
     this.text,
     this.onTap,
     Key key,
@@ -17,16 +19,11 @@ class NumberGrid extends StatefulWidget {
 }
 
 class _NumberGridState extends State<NumberGrid> {
-  bool _isTapped = false;
-  Color _background = Colors
+  Color _randomColor = Colors
       .primaries[Random().nextInt(Colors.primaries.length)]
       .withOpacity(0.4);
 
   void _handleTap() {
-    setState(() {
-      _isTapped = true;
-    });
-
     widget.onTap();
   }
 
@@ -34,19 +31,20 @@ class _NumberGridState extends State<NumberGrid> {
   Widget build(BuildContext context) {
     return Card(
       child: Material(
-        color: _background,
+        color: _randomColor,
         child: InkWell(
             onTap: _handleTap,
             child: Center(
               child: Container(
                 child: AnimatedDefaultTextStyle(
-                  style: _isTapped
-                      ? TextStyle(fontSize: 128)
-                      : TextStyle(fontSize: 64),
-                  duration: const Duration(milliseconds: 800),
+                  style: widget.selected
+                      ? const TextStyle(fontSize: 192)
+                      : const TextStyle(fontSize: 128),
+                  duration: const Duration(milliseconds: 400),
                   curve: Curves.bounceOut,
                   child: Text(
                     widget.text,
+                    softWrap: false,
                     style: TextStyle(
                       fontFamily: 'CabinSketch',
                       fontWeight: FontWeight.w700,

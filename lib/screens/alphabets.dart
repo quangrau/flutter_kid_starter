@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:async' show Future;
-// import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
@@ -25,7 +24,7 @@ class AlphabetsScreen extends StatefulWidget {
 }
 
 class _AlphabetsScreenState extends State<AlphabetsScreen> {
-  Future<List<AlphabetEntity>> _alpabetsFuture;
+  Future<List<AlphabetEntity>> _alphabetsFuture;
   FlutterSoundPlayer _soundPlayer;
   int _selectedIndex;
 
@@ -33,7 +32,7 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
   void initState() {
     super.initState();
 
-    _alpabetsFuture = _fetchAlphabets();
+    _alphabetsFuture = _fetchAlphabets();
     _soundPlayer = new FlutterSoundPlayer();
   }
 
@@ -51,7 +50,7 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
           backgroundColor: Colors.yellow[100],
         ),
         body: FutureBuilder(
-          future: _alpabetsFuture,
+          future: _alphabetsFuture,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GridView.builder(

@@ -6,7 +6,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
 import 'package:flutterkutkit/entities/number.dart';
 import 'package:flutterkutkit/widgets/base_app_bar.dart';
-import 'package:flutterkutkit/widgets/numberGrid.dart';
+import 'package:flutterkutkit/widgets/number_grid.dart';
 
 Future<List<NumberEntity>> _fetchNumbers() async {
   String jsonString = await rootBundle.loadString('assets/data/numbers.json');
@@ -27,6 +27,7 @@ class CountingScreen extends StatefulWidget {
 class _CountingScreenState extends State<CountingScreen> {
   Future<List<NumberEntity>> _numbersFuture;
   FlutterSoundPlayer _soundPlayer;
+  int _selectedIndex;
 
   @override
   void initState() {
@@ -49,7 +50,7 @@ class _CountingScreenState extends State<CountingScreen> {
           title: '123',
           backgroundColor: Colors.pink[100],
         ),
-        body: new FutureBuilder(
+        body: FutureBuilder(
           future: _numbersFuture,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -60,7 +61,11 @@ class _CountingScreenState extends State<CountingScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return NumberGrid(
                     text: snapshot.data[index].text,
+                    selected: _selectedIndex == index,
                     onTap: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
                       _playAudio(snapshot.data[index].audio);
                     },
                   );

@@ -6,7 +6,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
 import 'package:flutterkutkit/entities/color.dart';
 import 'package:flutterkutkit/widgets/base_app_bar.dart';
-import 'package:flutterkutkit/widgets/colorGrid.dart';
+import 'package:flutterkutkit/widgets/color_grid.dart';
 
 Future<List<ColorEntity>> _fetchColors() async {
   String jsonString = await rootBundle.loadString('assets/data/colors.json');
