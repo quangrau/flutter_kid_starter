@@ -29,31 +29,32 @@ class _NumberGridState extends State<NumberGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
       child: Material(
         color: _randomColor,
         child: InkWell(
-            onTap: _handleTap,
-            child: Center(
-              child: Container(
-                child: AnimatedDefaultTextStyle(
-                  style: widget.selected
-                      ? const TextStyle(fontSize: 192)
-                      : const TextStyle(fontSize: 128),
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.bounceOut,
-                  child: Text(
-                    widget.text,
-                    softWrap: false,
-                    style: TextStyle(
-                      fontFamily: 'CabinSketch',
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                  ),
+          onTap: _handleTap,
+          child: Container(
+            alignment: Alignment.center,
+            child: AnimatedDefaultTextStyle(
+              style: widget.selected
+                  ? const TextStyle(fontSize: 192)
+                  : const TextStyle(fontSize: 128),
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.bounceOut,
+              child: Text(
+                widget.text,
+                softWrap: false,
+                style: TextStyle(
+                  fontFamily: 'CabinSketch',
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

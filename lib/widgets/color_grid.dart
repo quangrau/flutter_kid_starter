@@ -14,26 +14,28 @@ class ColorGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-          child: Material(
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Material(
         color: new Color(code),
         child: InkWell(
-            onTap: onTap,
-            child: Center(
-              child: Container(
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    fontFamily: 'CabinSketch',
-                    fontSize: 54,
-                    fontWeight: FontWeight.w700,
-                    color: name == 'White' || name == 'Yellow'
-                        ? Colors.black.withOpacity(0.4)
-                        : Colors.white.withOpacity(0.65),
-                  ),
+          onTap: onTap,
+          child: Center(
+            child: Container(
+              child: Text(
+                name,
+                style: TextStyle(
+                  fontFamily: 'CabinSketch',
+                  fontSize: 54,
+                  fontWeight: FontWeight.w700,
+                  color: name == 'White' || name == 'Yellow'
+                      ? Colors.black.withOpacity(0.4)
+                      : Colors.white.withOpacity(0.65),
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

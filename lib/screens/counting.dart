@@ -25,6 +25,9 @@ class CountingScreen extends StatefulWidget {
 }
 
 class _CountingScreenState extends State<CountingScreen> {
+  final Color _primaryColor = Colors.pink[100];
+  final Color _secondaryColor = Colors.yellow[100];
+
   Future<List<NumberEntity>> _numbersFuture;
   FlutterSoundPlayer _soundPlayer;
   int _selectedIndex;
@@ -45,39 +48,52 @@ class _CountingScreenState extends State<CountingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         appBar: BaseAppBar(
           title: '123',
-          backgroundColor: Colors.pink[100],
+          primaryColor: _primaryColor,
+          secondaryColor: _secondaryColor,
         ),
-        body: FutureBuilder(
-          future: _numbersFuture,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return NumberGrid(
-                    text: snapshot.data[index].text,
-                    selected: _selectedIndex == index,
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                      _playAudio(snapshot.data[index].audio);
-                    },
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: Text('Loading...'),
-              );
-            }
-          },
-        ));
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+            _primaryColor,
+            _secondaryColor,
+          ])),
+          child: FutureBuilder(
+            future: _numbersFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  padding: const EdgeInsets.all(20),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return NumberGrid(
+                      text: snapshot.data[index].text,
+                      selected: _selectedIndex == index,
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                        _playAudio(snapshot.data[index].audio);
+                      },
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text('Loading...'),
+                );
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   @override
