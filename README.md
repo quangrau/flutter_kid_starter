@@ -1,6 +1,6 @@
-# flutterkutkit
+# Flutter Kid Starter
 
-For Surin &amp; Subin. Build from papa with love!
+For Surin &amp; Subin. From papa with ❤️!
 
 ## Getting Started
 
