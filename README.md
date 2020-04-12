@@ -1,6 +1,7 @@
 # Flutter Kid Starter
 
-For Surin &amp; Subin. From Daddy with ❤️!
+This is my very first Flutter app. 
+During the COVID-19 situation where all workplaces and schools were closures. My kids were switch to home-based learning, and so do I... but with Flutter :)
 
 ## Screenshots
 
