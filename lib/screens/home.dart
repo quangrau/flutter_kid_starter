@@ -72,9 +72,10 @@ class _CategoryTile extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 64.0,
+                fontSize: 92.0,
                 fontFamily: 'CabinSketch',
                 fontWeight: FontWeight.w700,
+                letterSpacing: 10.0,
               ),
             ),
           ),

@@ -14,54 +14,44 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: backgroundColor,
       height: _preferredHeight,
       alignment: Alignment.center,
       padding: EdgeInsets.only(top: 20.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: <Color>[
-            backgroundColor,
-            Colors.teal[100],
-          ],
-        ),
-      ),
       child: Row(
-//        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: 64,
-            height: 64,
-            margin: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black54,
-                  blurRadius: 21, // soften the shadow
-                  spreadRadius: -15, //end the shadow
-                  offset: Offset(
-                    0.0, // Move to right 10  horizontally
-                    20.0, // Move to bottom 10 Vertically
+            margin: EdgeInsets.all(16.0),
+            child: ClipOval(
+              child: Material(
+                child: InkWell(
+                  splashColor: Colors.pink[100], // inkwell color
+                  child: SizedBox(
+                    width: 56,
+                    height: 56,
+                    child: Image.asset(
+                      'assets/icons/castle.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                )
-              ],
-            ),
-            child: RaisedButton(
-              child: Text('<', style: TextStyle(
-                fontFamily: 'CabinSketch',
-                fontWeight: FontWeight.w700,
-                fontSize: 84,
-              ),),
+                  onTap: () {
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop();
+                    }
+
+                    Navigator.of(context).pushNamed('/');
+                  },
+                ),
+              ),
             ),
           ),
           Text(
             title,
             style: const TextStyle(
-              color: Colors.black54,
               fontSize: 42,
-              fontWeight: FontWeight.w700,
               fontFamily: 'CabinSketch',
-              letterSpacing: 10.0,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 2.0,
             ),
           ),
         ],
