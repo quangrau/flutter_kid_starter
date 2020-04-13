@@ -25,9 +25,9 @@ class AlphabetGrid extends StatelessWidget {
               child: Container(
                 child: AnimatedDefaultTextStyle(
                   style: selected
-                      ? TextStyle(fontSize: 228)
+                      ? TextStyle(fontSize: 192)
                       : TextStyle(fontSize: 128),
-                  duration: const Duration(milliseconds: 800),
+                  duration: const Duration(milliseconds: 400),
                   curve: Curves.bounceOut,
                   child: Text(
                     text,
