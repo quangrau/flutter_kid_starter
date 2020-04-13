@@ -1,6 +1,16 @@
-# flutterkutkit
+# Flutter Kid Starter
 
-For Surin &amp; Subin. Build from papa with love!
+This is my very first Flutter app. 
+During the COVID-19 situation where all workplaces and schools were closures. My kids were switch to home-based learning, and so do I... but with Flutter :)
+
+## Screenshots
+
+<div align="center">
+  <img src="screenshots/screenshot_1.png" width="400px" />
+  <img src="screenshots/screenshot_2.png" width="400px" />
+  <img src="screenshots/screenshot_3.png" width="400px" />
+  <img src="screenshots/screenshot_4.png" width="400px" />
+</div>
 
 ## Getting Started
 

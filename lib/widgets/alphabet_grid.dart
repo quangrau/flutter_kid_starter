@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-class AlphabetGrid extends StatelessWidget {
+class AlphabetGrid extends StatefulWidget {
   final bool selected;
   final String text;
   final VoidCallback onTap;
@@ -14,32 +14,42 @@ class AlphabetGrid extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _AlphabetGridState createState() => _AlphabetGridState();
+}
+
+class _AlphabetGridState extends State<AlphabetGrid> {
+  final Color _randomColor = Colors
+      .primaries[Random().nextInt(Colors.primaries.length)]
+      .withOpacity(0.4);
+
+  @override
   Widget build(BuildContext context) {
-    return Card(
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
       child: Material(
-        color: Colors.primaries[Random().nextInt(Colors.primaries.length)]
-            .withOpacity(0.4),
+        color: _randomColor,
         child: InkWell(
-            onTap: onTap,
-            child: Center(
-              child: Container(
-                child: AnimatedDefaultTextStyle(
-                  style: selected
-                      ? TextStyle(fontSize: 192)
-                      : TextStyle(fontSize: 128),
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.bounceOut,
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                      fontFamily: 'CabinSketch',
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
+          onTap: widget.onTap,
+          child: Center(
+            child: Container(
+              child: AnimatedDefaultTextStyle(
+                style: widget.selected
+                    ? const TextStyle(fontSize: 192)
+                    : const TextStyle(fontSize: 128),
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.bounceOut,
+                child: Text(
+                  widget.text,
+                  style: const TextStyle(
+                    fontFamily: 'CabinSketch',
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
                   ),
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

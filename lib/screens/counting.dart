@@ -6,7 +6,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
 import 'package:flutterkutkit/entities/number.dart';
 import 'package:flutterkutkit/widgets/base_app_bar.dart';
-import 'package:flutterkutkit/widgets/numberGrid.dart';
+import 'package:flutterkutkit/widgets/number_grid.dart';
 
 Future<List<NumberEntity>> _fetchNumbers() async {
   String jsonString = await rootBundle.loadString('assets/data/numbers.json');
@@ -25,8 +25,12 @@ class CountingScreen extends StatefulWidget {
 }
 
 class _CountingScreenState extends State<CountingScreen> {
+  final Color _primaryColor = Colors.pink[100];
+  final Color _secondaryColor = Colors.yellow[100];
+
   Future<List<NumberEntity>> _numbersFuture;
   FlutterSoundPlayer _soundPlayer;
+  int _selectedIndex;
 
   @override
   void initState() {
@@ -44,35 +48,52 @@ class _CountingScreenState extends State<CountingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         appBar: BaseAppBar(
           title: '123',
-          backgroundColor: Colors.pink[100],
+          primaryColor: _primaryColor,
+          secondaryColor: _secondaryColor,
         ),
-        body: new FutureBuilder(
-          future: _numbersFuture,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return NumberGrid(
-                    text: snapshot.data[index].text,
-                    onTap: () {
-                      _playAudio(snapshot.data[index].audio);
-                    },
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: Text('Loading...'),
-              );
-            }
-          },
-        ));
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+            _primaryColor,
+            _secondaryColor,
+          ])),
+          child: FutureBuilder(
+            future: _numbersFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  padding: const EdgeInsets.all(20),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return NumberGrid(
+                      text: snapshot.data[index].text,
+                      selected: _selectedIndex == index,
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                        _playAudio(snapshot.data[index].audio);
+                      },
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text('Loading...'),
+                );
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   @override

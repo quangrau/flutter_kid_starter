@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/data/
     - assets/audio/
+    - assets/icons/castle.png
 
   fonts:
     - family: CabinSketch

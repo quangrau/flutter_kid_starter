@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:async' show Future;
-// import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
@@ -25,7 +24,10 @@ class AlphabetsScreen extends StatefulWidget {
 }
 
 class _AlphabetsScreenState extends State<AlphabetsScreen> {
-  Future<List<AlphabetEntity>> _alpabetsFuture;
+  final Color _primaryColor = Colors.yellow[100];
+  final Color _secondaryColor = Colors.pink[100];
+
+  Future<List<AlphabetEntity>> _alphabetsFuture;
   FlutterSoundPlayer _soundPlayer;
   int _selectedIndex;
 
@@ -33,7 +35,7 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
   void initState() {
     super.initState();
 
-    _alpabetsFuture = _fetchAlphabets();
+    _alphabetsFuture = _fetchAlphabets();
     _soundPlayer = new FlutterSoundPlayer();
   }
 
@@ -45,39 +47,55 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         appBar: BaseAppBar(
           title: 'ABC',
-          backgroundColor: Colors.yellow[100],
+          primaryColor: _primaryColor,
+          secondaryColor: _secondaryColor,
         ),
-        body: FutureBuilder(
-          future: _alpabetsFuture,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return AlphabetGrid(
-                    selected: _selectedIndex == index,
-                    text: snapshot.data[index].text,
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                      // _playAudio(snapshot.data[index].audio);
-                    },
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: Text('Loading...'),
-              );
-            }
-          },
-        ));
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                _primaryColor,
+                _secondaryColor,
+              ],
+            ),
+          ),
+          child: FutureBuilder(
+            future: _alphabetsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  padding: const EdgeInsets.all(20),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return AlphabetGrid(
+                      selected: _selectedIndex == index,
+                      text: snapshot.data[index].text,
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                        // _playAudio(snapshot.data[index].audio);
+                      },
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text('Loading...'),
+                );
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   @override

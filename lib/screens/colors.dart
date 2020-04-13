@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:async' show Future;
 import 'dart:typed_data';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
 import 'package:flutterkutkit/entities/color.dart';
 import 'package:flutterkutkit/widgets/base_app_bar.dart';
-import 'package:flutterkutkit/widgets/colorGrid.dart';
+import 'package:flutterkutkit/widgets/color_grid.dart';
 
 Future<List<ColorEntity>> _fetchColors() async {
   String jsonString = await rootBundle.loadString('assets/data/colors.json');
@@ -25,6 +26,9 @@ class ColorsScreen extends StatefulWidget {
 }
 
 class _ColorsScreenState extends State<ColorsScreen> {
+  final Color _primaryColor = Colors.teal[100];
+  final Color _secondaryColor = Colors.yellow[100];
+
   Future<List<ColorEntity>> _colorsFuture;
   FlutterSoundPlayer _soundPlayer;
 
@@ -44,36 +48,52 @@ class _ColorsScreenState extends State<ColorsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         appBar: BaseAppBar(
           title: 'Colors',
-          backgroundColor: Colors.teal[100],
+          primaryColor: _primaryColor,
+          secondaryColor: _secondaryColor,
         ),
-        body: new FutureBuilder(
-          future: _colorsFuture,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ColorGrid(
-                    code: int.parse(snapshot.data[index].code),
-                    name: snapshot.data[index].name,
-                    onTap: () {
-                      _playAudio(snapshot.data[index].audio);
-                    },
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: Text('Loading...'),
-              );
-            }
-          },
-        ));
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                _primaryColor,
+                _secondaryColor,
+              ],
+            ),
+          ),
+          child: FutureBuilder(
+            future: _colorsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  padding: const EdgeInsets.all(20),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ColorGrid(
+                      code: int.parse(snapshot.data[index].code),
+                      name: snapshot.data[index].name,
+                      onTap: () {
+                        _playAudio(snapshot.data[index].audio);
+                      },
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text('Loading...'),
+                );
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   @override
