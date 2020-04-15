@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterkutkit/constant.dart';
+import 'package:kidstarter/constant.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;

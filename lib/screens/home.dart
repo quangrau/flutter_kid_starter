@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterkutkit/screens/alphabets.dart';
-import 'package:flutterkutkit/screens/colors.dart';
-import 'package:flutterkutkit/screens/counting.dart';
-import 'package:flutterkutkit/screens/shapes.dart';
-import 'package:flutterkutkit/screens/stories.dart';
-import 'package:flutterkutkit/widgets/category_card.dart';
+import 'package:kidstarter/screens/alphabets.dart';
+import 'package:kidstarter/screens/colors.dart';
+import 'package:kidstarter/screens/counting.dart';
+import 'package:kidstarter/screens/shapes.dart';
+import 'package:kidstarter/screens/stories.dart';
+import 'package:kidstarter/widgets/category_card.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<Widget> _categories = [

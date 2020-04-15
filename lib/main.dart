@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterkutkit/constant.dart';
-import 'package:flutterkutkit/screens/home.dart';
+import 'package:kidstarter/constant.dart';
+import 'package:kidstarter/screens/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Kid Starter',
+      title: 'KidStarter',
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,
         fontFamily: "CabinSketch",

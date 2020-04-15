@@ -1,4 +1,4 @@
-package quangrau.com.flutterkutkit
+package quangrau.com.kidstarter
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

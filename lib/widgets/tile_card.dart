@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterkutkit/constant.dart';
+import 'package:kidstarter/constant.dart';
 
 class TileCard extends StatelessWidget {
   final bool isActive;

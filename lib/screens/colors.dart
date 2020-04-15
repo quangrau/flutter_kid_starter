@@ -5,10 +5,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
-import 'package:flutterkutkit/constant.dart';
-import 'package:flutterkutkit/entities/color.dart';
-import 'package:flutterkutkit/widgets/page_header.dart';
-import 'package:flutterkutkit/widgets/tile_card.dart';
+import 'package:kidstarter/constant.dart';
+import 'package:kidstarter/entities/color.dart';
+import 'package:kidstarter/widgets/page_header.dart';
+import 'package:kidstarter/widgets/tile_card.dart';
 
 Future<List<ColorEntity>> _fetchColors() async {
   String jsonString = await rootBundle.loadString('assets/data/colors.json');
