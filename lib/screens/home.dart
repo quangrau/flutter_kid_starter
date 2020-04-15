@@ -66,6 +66,7 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         // color: Colors.grey[50],
         decoration: BoxDecoration(
+          color: Colors.grey[50],
           image: DecorationImage(
             image: AssetImage('assets/images/bg-bottom.png'),
             alignment: Alignment.bottomCenter,
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.asset(
                   'assets/images/bg-top.png',
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.cover,
                   alignment: Alignment.topCenter,
                 ),
               ),

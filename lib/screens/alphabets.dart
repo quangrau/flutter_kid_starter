@@ -78,7 +78,6 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
                         ),
                         itemCount: snapshot.data.length,
                         itemBuilder: (BuildContext context, int index) {
-                          print(index % Colors.primaries.length);
                           return TileCard(
                             isActive: _selectedIndex == index,
                             title: snapshot.data[index].text,
