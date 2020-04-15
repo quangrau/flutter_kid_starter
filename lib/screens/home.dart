@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-              expandedHeight: 220.0,
+              expandedHeight: 188.0,
               backgroundColor: Colors.grey[50],
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.asset(

@@ -1,15 +1,15 @@
 # Flutter Kid Starter
 
-This is my very first Flutter app. 
+This is my very first Flutter app.
 During the COVID-19 situation where all workplaces and schools were closures. My kids were switch to home-based learning, and so do I... but with Flutter :)
 
 ## Screenshots
 
 <div align="center">
-  <img src="screenshots/screenshot_1.png" width="400px" />
-  <img src="screenshots/screenshot_2.png" width="400px" />
-  <img src="screenshots/screenshot_3.png" width="400px" />
-  <img src="screenshots/screenshot_4.png" width="400px" />
+  <img src="screenshots/ss1.png" width="400px" />
+  <img src="screenshots/ss2.png" width="400px" />
+  <img src="screenshots/ss3.png" width="400px" />
+  <img src="screenshots/ss4.png" width="400px" />
 </div>
 
 ## Getting Started
