@@ -37,7 +37,7 @@ class CategoryCard extends StatelessWidget {
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 10,
-            color: kActiveShadowColor,
+            color: Colors.grey[900].withOpacity(0.2),
           ),
         ],
         gradient: LinearGradient(
@@ -52,15 +52,17 @@ class CategoryCard extends StatelessWidget {
       height: 180.0,
       child: Material(
         type: MaterialType.transparency,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        borderRadius: BorderRadius.circular(20),
+        clipBehavior: Clip.hardEdge,
         child: InkWell(
           onTap: () {
             _navigate(context, screen);
           },
           child: Container(
             alignment: Alignment.center,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.circular(20.0),
+            ),
             child: Text(
               title,
               style: kHeadingTextStyle.copyWith(

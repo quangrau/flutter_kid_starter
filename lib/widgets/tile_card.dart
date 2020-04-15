@@ -24,7 +24,7 @@ class TileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+//      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: backgroundColor,
@@ -37,9 +37,8 @@ class TileCard extends StatelessWidget {
         ],
       ),
       child: Material(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
+        clipBehavior: Clip.hardEdge,
+        borderRadius: BorderRadius.circular(15.0),
         type: MaterialType.transparency,
         child: InkWell(
           onTap: onTap,

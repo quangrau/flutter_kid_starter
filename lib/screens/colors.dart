@@ -64,22 +64,25 @@ class _ColorsScreenState extends State<ColorsScreen> {
             secondaryColor: widget.secondaryColor,
           ),
           Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: FutureBuilder(
-                future: _colorsFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return MediaQuery.removePadding(
-                      context: context,
-                      removeTop: true,
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                        ),
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return TileCard(
+            child: FutureBuilder(
+              future: _colorsFuture,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return MediaQuery.removePadding(
+                    context: context,
+                    removeTop: true,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 20.0,
+                      ),
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: index % 2 == 0
+                              ? const EdgeInsets.only(bottom: 20, left: 20)
+                              : const EdgeInsets.only(bottom: 20, right: 20),
+                          child: TileCard(
                             isActive: _selectedIndex == index,
                             title: snapshot.data[index].name,
                             textColor: snapshot.data[index].name == 'White'
@@ -96,17 +99,17 @@ class _ColorsScreenState extends State<ColorsScreen> {
 
                               _playAudio(snapshot.data[index].audio);
                             },
-                          );
-                        },
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: Text('Loading...'),
-                    );
-                  }
-                },
-              ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: Text('Loading...'),
+                  );
+                }
+              },
             ),
           ),
         ],

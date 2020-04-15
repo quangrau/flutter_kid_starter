@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterkutkit/constant.dart';
 import 'package:flutterkutkit/widgets/page_header.dart';
 
 class ShapesScreen extends StatelessWidget {
@@ -24,7 +25,12 @@ class ShapesScreen extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.center,
-            child: Text('Comming soon...'),
+            child: Text(
+              'Comming soon...',
+              style: kSubTextStyle.copyWith(
+                fontSize: 24,
+              ),
+            ),
           ),
         ],
       ),

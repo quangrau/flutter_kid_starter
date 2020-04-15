@@ -64,7 +64,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // color: Colors.grey[50],
         decoration: BoxDecoration(
           color: Colors.grey[50],
           image: DecorationImage(

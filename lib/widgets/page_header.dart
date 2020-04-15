@@ -18,8 +18,8 @@ class PageHeader extends StatelessWidget {
     return ClipPath(
       clipper: MyClipper(),
       child: Container(
-        padding: EdgeInsets.only(left: 40, top: 50, right: 40),
-        height: 350,
+        padding: EdgeInsets.only(left: 30, top: 60, right: 30),
+        height: 300,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -58,7 +58,7 @@ class PageHeader extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    height: 160,
+                    height: 80,
                     alignment: Alignment.center,
                     child: Text(
                       "$title",
@@ -82,7 +82,7 @@ class MyClipper extends CustomClipper<Path> {
     var path = Path();
     path.lineTo(0, size.height - 80);
     path.quadraticBezierTo(
-        size.width / 2, size.height, size.width, size.height - 80);
+        size.width / 2, size.height + 0, size.width, size.height - 80);
     path.lineTo(size.width, 0);
     path.close();
     return path;
