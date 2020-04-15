@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
 import 'package:flutterkutkit/entities/number.dart';
-import 'package:flutterkutkit/widgets/base_app_bar.dart';
-import 'package:flutterkutkit/widgets/number_grid.dart';
+import 'package:flutterkutkit/helper.dart';
+import 'package:flutterkutkit/widgets/page_header.dart';
+import 'package:flutterkutkit/widgets/tile_card.dart';
 
 Future<List<NumberEntity>> _fetchNumbers() async {
   String jsonString = await rootBundle.loadString('assets/data/numbers.json');
@@ -18,16 +19,21 @@ Future<List<NumberEntity>> _fetchNumbers() async {
 }
 
 class CountingScreen extends StatefulWidget {
-  CountingScreen();
+  final String title;
+  final Color primaryColor;
+  final Color secondaryColor;
+
+  CountingScreen({
+    this.title,
+    this.primaryColor,
+    this.secondaryColor,
+  });
 
   @override
   _CountingScreenState createState() => _CountingScreenState();
 }
 
 class _CountingScreenState extends State<CountingScreen> {
-  final Color _primaryColor = Colors.pink[100];
-  final Color _secondaryColor = Colors.yellow[100];
-
   Future<List<NumberEntity>> _numbersFuture;
   FlutterSoundPlayer _soundPlayer;
   int _selectedIndex;
@@ -48,50 +54,54 @@ class _CountingScreenState extends State<CountingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: BaseAppBar(
-          title: '123',
-          primaryColor: _primaryColor,
-          secondaryColor: _secondaryColor,
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            _primaryColor,
-            _secondaryColor,
-          ])),
-          child: FutureBuilder(
-            future: _numbersFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return GridView.builder(
-                  padding: const EdgeInsets.all(20),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return NumberGrid(
-                      text: snapshot.data[index].text,
-                      selected: _selectedIndex == index,
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                        _playAudio(snapshot.data[index].audio);
-                      },
-                    );
-                  },
-                );
-              } else {
-                return Center(
-                  child: Text('Loading...'),
-                );
-              }
-            },
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          PageHeader(
+            title: widget.title,
+            primaryColor: widget.primaryColor,
+            secondaryColor: widget.secondaryColor,
           ),
-        ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: FutureBuilder(
+                future: _numbersFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return TileCard(
+                            isActive: _selectedIndex == index,
+                            title: snapshot.data[index].text,
+                            textColor: getIndexColor(index),
+                            onTap: () {
+                              setState(() {
+                                _selectedIndex = index;
+                              });
+                              _playAudio(snapshot.data[index].audio);
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: Text('Loading...'),
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

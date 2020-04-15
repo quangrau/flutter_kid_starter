@@ -1,51 +1,51 @@
 [
   {
-    "code": "0xfff44336",
+    "code": "0xccf44336",
     "name": "Red",
     "audio": "assets/audio/red.mp3"
   },
   {
-    "code": "0xff4caf50",
+    "code": "0xcc4caf50",
     "name": "Green",
     "audio": "assets/audio/green.mp3"
   },
   {
-    "code": "0xff9c27b0",
+    "code": "0xcc9c27b0",
     "name": "Purple",
     "audio": "assets/audio/purple.mp3"
   },
   {
-    "code": "0xff2196f3",
+    "code": "0xcc2196f3",
     "name": "Blue",
     "audio": "assets/audio/blue.mp3"
   },
   {
-    "code": "0xffec407a",
+    "code": "0xccec407a",
     "name": "Pink",
     "audio": "assets/audio/pink.mp3"
   },
   {
-    "code": "0xffffeb3b",
+    "code": "0xccffeb3b",
     "name": "Yellow",
     "audio": "assets/audio/yellow.mp3"
   },
   {
-    "code": "0xffff9800",
+    "code": "0xccff9800",
     "name": "Orange",
     "audio": "assets/audio/orange.mp3"
   },
   {
-    "code": "0xff795548",
+    "code": "0xcc795548",
     "name": "Brown",
     "audio": "assets/audio/brown.mp3"
   },
   {
-    "code": "0xff000000",
+    "code": "0xcc000000",
     "name": "Black",
     "audio": "assets/audio/black.mp3"
   },
   {
-    "code": "0xffffffff",
+    "code": "0xccffffff",
     "name": "White",
     "audio": "assets/audio/white.mp3"
   }

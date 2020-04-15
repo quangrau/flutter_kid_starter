@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:async' show Future;
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
 import 'package:flutterkutkit/entities/alphabet.dart';
-import 'package:flutterkutkit/widgets/alphabet_grid.dart';
-import 'package:flutterkutkit/widgets/base_app_bar.dart';
+import 'package:flutterkutkit/helper.dart';
+import 'package:flutterkutkit/widgets/page_header.dart';
+import 'package:flutterkutkit/widgets/tile_card.dart';
 
 Future<List<AlphabetEntity>> _fetchAlphabets() async {
   String jsonString = await rootBundle.loadString('assets/data/alphabets.json');
@@ -17,16 +19,21 @@ Future<List<AlphabetEntity>> _fetchAlphabets() async {
 }
 
 class AlphabetsScreen extends StatefulWidget {
-  AlphabetsScreen();
+  final String title;
+  final Color primaryColor;
+  final Color secondaryColor;
+
+  AlphabetsScreen({
+    this.title,
+    this.primaryColor,
+    this.secondaryColor,
+  });
 
   @override
   _AlphabetsScreenState createState() => _AlphabetsScreenState();
 }
 
 class _AlphabetsScreenState extends State<AlphabetsScreen> {
-  final Color _primaryColor = Colors.yellow[100];
-  final Color _secondaryColor = Colors.pink[100];
-
   Future<List<AlphabetEntity>> _alphabetsFuture;
   FlutterSoundPlayer _soundPlayer;
   int _selectedIndex;
@@ -39,61 +46,63 @@ class _AlphabetsScreenState extends State<AlphabetsScreen> {
     _soundPlayer = new FlutterSoundPlayer();
   }
 
-  // void _playAudio(String audioPath) async {
-  //   // Load a local audio file and get it as a buffer
-  //   Uint8List buffer = (await rootBundle.load(audioPath)).buffer.asUint8List();
-  //   await _soundPlayer.startPlayerFromBuffer(buffer);
-  // }
+  void _playAudio(String audioPath) async {
+    // Load a local audio file and get it as a buffer
+    Uint8List buffer = (await rootBundle.load(audioPath)).buffer.asUint8List();
+    await _soundPlayer.startPlayerFromBuffer(buffer);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: BaseAppBar(
-          title: 'ABC',
-          primaryColor: _primaryColor,
-          secondaryColor: _secondaryColor,
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                _primaryColor,
-                _secondaryColor,
-              ],
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          PageHeader(
+            title: widget.title,
+            primaryColor: widget.primaryColor,
+            secondaryColor: widget.secondaryColor,
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: FutureBuilder(
+                future: _alphabetsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          print(index % Colors.primaries.length);
+                          return TileCard(
+                            isActive: _selectedIndex == index,
+                            title: snapshot.data[index].text,
+                            textColor: getIndexColor(index),
+                            onTap: () {
+                              setState(() {
+                                _selectedIndex = index;
+                              });
+                              _playAudio(snapshot.data[index].audio);
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: Text('Loading...'),
+                    );
+                  }
+                },
+              ),
             ),
           ),
-          child: FutureBuilder(
-            future: _alphabetsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return GridView.builder(
-                  padding: const EdgeInsets.all(20),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return AlphabetGrid(
-                      selected: _selectedIndex == index,
-                      text: snapshot.data[index].text,
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                        // _playAudio(snapshot.data[index].audio);
-                      },
-                    );
-                  },
-                );
-              } else {
-                return Center(
-                  child: Text('Loading...'),
-                );
-              }
-            },
-          ),
-        ),
+        ],
       ),
     );
   }

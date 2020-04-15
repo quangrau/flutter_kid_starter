@@ -5,9 +5,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_sound/flutter_sound_player.dart';
+import 'package:flutterkutkit/constant.dart';
 import 'package:flutterkutkit/entities/color.dart';
-import 'package:flutterkutkit/widgets/base_app_bar.dart';
-import 'package:flutterkutkit/widgets/color_grid.dart';
+import 'package:flutterkutkit/widgets/page_header.dart';
+import 'package:flutterkutkit/widgets/tile_card.dart';
 
 Future<List<ColorEntity>> _fetchColors() async {
   String jsonString = await rootBundle.loadString('assets/data/colors.json');
@@ -19,18 +20,24 @@ Future<List<ColorEntity>> _fetchColors() async {
 }
 
 class ColorsScreen extends StatefulWidget {
-  ColorsScreen();
+  final String title;
+  final Color primaryColor;
+  final Color secondaryColor;
+
+  ColorsScreen({
+    this.title,
+    this.primaryColor,
+    this.secondaryColor,
+  });
 
   @override
   _ColorsScreenState createState() => _ColorsScreenState();
 }
 
 class _ColorsScreenState extends State<ColorsScreen> {
-  final Color _primaryColor = Colors.teal[100];
-  final Color _secondaryColor = Colors.yellow[100];
-
   Future<List<ColorEntity>> _colorsFuture;
   FlutterSoundPlayer _soundPlayer;
+  int _selectedIndex;
 
   @override
   void initState() {
@@ -48,50 +55,61 @@ class _ColorsScreenState extends State<ColorsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: BaseAppBar(
-          title: 'Colors',
-          primaryColor: _primaryColor,
-          secondaryColor: _secondaryColor,
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                _primaryColor,
-                _secondaryColor,
-              ],
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          PageHeader(
+            title: widget.title,
+            primaryColor: widget.primaryColor,
+            secondaryColor: widget.secondaryColor,
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: FutureBuilder(
+                future: _colorsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return TileCard(
+                            isActive: _selectedIndex == index,
+                            title: snapshot.data[index].name,
+                            textColor: snapshot.data[index].name == 'White'
+                                ? kTitleTextColor
+                                : Colors.white,
+                            backgroundColor:
+                                Color(int.parse(snapshot.data[index].code)),
+                            fontSizeBase: 30,
+                            fontSizeActive: 40,
+                            onTap: () {
+                              setState(() {
+                                _selectedIndex = index;
+                              });
+
+                              _playAudio(snapshot.data[index].audio);
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: Text('Loading...'),
+                    );
+                  }
+                },
+              ),
             ),
           ),
-          child: FutureBuilder(
-            future: _colorsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return GridView.builder(
-                  padding: const EdgeInsets.all(20),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ColorGrid(
-                      code: int.parse(snapshot.data[index].code),
-                      name: snapshot.data[index].name,
-                      onTap: () {
-                        _playAudio(snapshot.data[index].audio);
-                      },
-                    );
-                  },
-                );
-              } else {
-                return Center(
-                  child: Text('Loading...'),
-                );
-              }
-            },
-          ),
-        ),
+        ],
       ),
     );
   }
