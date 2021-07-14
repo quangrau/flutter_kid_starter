@@ -1,7 +1,6 @@
 # Flutter Kid Starter
 
-This is my very first Flutter app.
-During the COVID-19 situation where all workplaces and schools were closures. My kids were switch to home-based learning, and so do I... but with Flutter :)
+This is my very first Flutter app. During the COVID-19 situation where all workplaces and schools were closed. My kids were switch to home-based learning, and so do I... but with Flutter :)
 
 ## Screenshots
 
